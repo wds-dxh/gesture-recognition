@@ -41,6 +41,8 @@ for epoch in range(epochs):
         data = data['data']
 
         for j in range(len(data)):
+            print(data[j])
+            break
             xdata = t.tensor(data[j])
             optimizer.zero_grad()# 优化器梯度清零
             this_target = t.tensor(target[i]).float()# 独热码

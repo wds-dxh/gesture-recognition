@@ -20,6 +20,6 @@ def landmark_handle(landmark_list):
     def normalize_(n):
         return n / max_value
 
-    deal = list(map(normalize_, deal))
+    deal = list(map(normalize_, deal))  #
 
     return deal

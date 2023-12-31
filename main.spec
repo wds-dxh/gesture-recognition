@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('J:/APP/usual/Miniconda3/envs/pytorch2.0/Lib/site-packages/mediapipe', 'mediapipe')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

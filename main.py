@@ -13,9 +13,6 @@ import numpy as np
 from tools.draw_rect_text import draw_rect_txt
 import QT
 
-
-
-
 model_path = 'checkpoints/model_test1.pth'
 #model_path = 'checkpoints/model_0.pth'
 label = ["also", "attractive", "beautiful", "believe", "de", "doubt", "dream", "express", "eye", "give", "handlang",
@@ -24,12 +21,28 @@ label = ["also", "attractive", "beautiful", "believe", "de", "doubt", "dream", "
          "me", "method", "no", "only", "over", "please", "put", "say", "smile", "star", "use", "very",
          "watch",
          "you"]
-chinatxt = ["也许", "吸引", "美丽", "相信", "的", "关于", "梦想", "表达", "眼睛", "给予", "手语",
-         "有",
+# chinatxt = ["也许", "吸引", "美丽", "相信", "的", "关于", "梦想", "表达", "眼睛", "给予", "手语",
+#          "有",
+#          "很多",
+#          "我", "方法", "不", "不仅", "结束", "请", "放进", "说", "微笑", "星星", "使用", "非常",
+#          "观看",
+#          "你"]
+
+# 聋哑人作为顾客
+# chinatxt = ["也许", "吸引", "美丽", "相信", "的", "关于", "好的，", "奶茶", "奶茶", "给予", "手语",
+#          "多少钱？",
+#          "很多",
+#          "我", "谢谢！！！", "不需要。", "不仅", "结束", "奶茶", "奶茶", "非常好喝", "微笑", "奶茶", "使用", "非常好喝",
+#          "奶茶",
+#          "你"]
+
+chinatxt = ["也许", "吸引", "你的奶茶好了！！！", "相信", "的", "关于", "好的，", "请问你需要什么", "请问你需要什么", "给予", "手语",
+         "18元，微信支付",
          "很多",
-         "我", "方法", "不", "不仅", "结束", "请", "放进", "说", "微笑", "星星", "使用", "非常",
-         "观看",
+         "我", "你的奶茶好了！！！", "需要加糖吗？", "不仅", "结束", "请问你需要什么", "请问你需要什么", "非常好喝", "微笑", "请问你需要什么", "使用", "非常好喝",
+         "请问你需要什么",
          "你"]
+
 label_num = len(label)
 
 background_flag = 0
@@ -52,7 +65,7 @@ cap = cv2.VideoCapture(0)
 FrameCount = 0
 time1 = time.time()
 fps = 0
-lastlab = "aaa"
+lastlab = "开始对话！！！！"
 say = 0
 over_lab = "bbbb"
 
@@ -77,7 +90,7 @@ if __name__ == '__main__':
         hand_local = []
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
-                # mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
                 for i in range(21):
                     x = min(int(hand_landmarks.landmark[i].x * frame.shape[1]), frame.shape[1] - 1)
                     y = min(int(hand_landmarks.landmark[i].y * frame.shape[0]), frame.shape[0] - 1)
@@ -88,8 +101,8 @@ if __name__ == '__main__':
                     frame.fill(128)
 
                 # 自己填骨架的色
-                draw_landmarks(frame, hand_local)
-                brect = draw_bounding_rect(frame, hand_local)
+                # draw_landmarks(frame, hand_local)
+                # brect = draw_bounding_rect(frame, hand_local)
                 # brect是框架的四个点坐标
                 hand_local = landmark_handle(hand_local)
 

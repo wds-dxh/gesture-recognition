@@ -25,13 +25,16 @@ hands = mp_hands.Hands(
     min_detection_confidence=0.75,
     min_tracking_confidence=0.75)
 
-for i in range(len(label)):
+# for i in range(len(label)):
+for i in range(1):
     print(str(i + 1) + "/" + str(len(label)) + ":" + label[i])
     data = []
     for j in range(video_num):
         # cap = cv2.VideoCapture("./Video/static/" + label[i] + "_" + str(j) + ".mp4")
         cap = cv2.VideoCapture("./Video/static/" + label[i] + "_" + "1" + ".mp4")
         ret, frame = cap.read()
+        if  ret is False:
+            print("视频打开失败")
         while ret is True:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             frame = cv2.flip(frame, 1)
@@ -49,6 +52,6 @@ for i in range(len(label)):
                     hand_local = landmark_handle(hand_local)
                     data.append(hand_local)
 
-            ret, frame = cap.read()
 
+            ret, frame = cap.read()
     np.savez_compressed("./npz_files/" + label[i] + ".npz", data=data)
