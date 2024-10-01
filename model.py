@@ -6,7 +6,7 @@ from torch.autograd import Variable
 class HandModel(nn.Module):
     def __init__(self):
         super(HandModel, self).__init__()
-        self.linear1 = nn.Linear(48, 40)
+        self.linear1 = nn.Linear(48, 40)#in_features:意思是输入的二维张量的大小，out_features:输出的二维张量的大小
         self.linear2 = nn.Linear(40, 32)
         self.linear3 = nn.Linear(32, 27)
 
