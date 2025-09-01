@@ -5,16 +5,16 @@ import mediapipe as mp
 import time
 import torch as t
 from model import HandModel
-from tools.landmark_handle import landmark_handle# 处理手部骨架
-from tools.draw_landmarks import draw_landmarks # 画手部骨架
-from tools.calc_landmark_list import calc_landmark_list# 计算手部骨架
-from tools.draw_bounding_rect import draw_bounding_rect# 画手部框架
+from tools.landmark_handle import landmark_handle  # 处理手部骨架
+from tools.draw_landmarks import draw_landmarks  # 画手部骨架
+from tools.calc_landmark_list import calc_landmark_list  # 计算手部骨架
+from tools.draw_bounding_rect import draw_bounding_rect  # 画手部框架
 import numpy as np
 from tools.draw_rect_text import draw_rect_txt
 import QT
 
 model_path = 'checkpoints/model_test1.pth'
-#model_path = 'checkpoints/model_0.pth'
+# model_path = 'checkpoints/model_0.pth'
 label = ["also", "attractive", "beautiful", "believe", "de", "doubt", "dream", "express", "eye", "give", "handlang",
          "have",
          "many",
@@ -37,11 +37,11 @@ label = ["also", "attractive", "beautiful", "believe", "de", "doubt", "dream", "
 #          "你"]
 
 chinatxt = ["也许", "吸引", "你的奶茶好了！！！", "相信", "的", "关于", "好的，", "请问你需要什么", "请问你需要什么", "给予", "手语",
-         "18元，微信支付",
-         "很多",
-         "我", "你的奶茶好了！！！", "需要加糖吗？", "不仅", "结束", "请问你需要什么", "请问你需要什么", "非常好喝", "微笑", "请问你需要什么", "使用", "非常好喝",
-         "请问你需要什么",
-         "你"]
+            "18元，微信支付",
+            "很多",
+            "我", "你的奶茶好了！！！", "需要加糖吗？", "不仅", "结束", "请问你需要什么", "请问你需要什么", "非常好喝", "微笑", "请问你需要什么", "使用", "非常好喝",
+            "请问你需要什么",
+            "你"]
 
 label_num = len(label)
 
@@ -69,12 +69,16 @@ lastlab = "开始对话！！！！"
 say = 0
 over_lab = "bbbb"
 
+
 def get_text():
     global lastlab
     return lastlab
 
+
 def update_display():
-    QT.display_text_window(get_text, font_size=20, timer_interval=5000)  # timer_interval：显示时间
+    QT.display_text_window(get_text, font_size=20,
+                           timer_interval=5000)  # timer_interval：显示时间
+
 
 if __name__ == '__main__':
     # QT.display_text_window(get_text, font_size=20, timer_interval=5000)
@@ -90,10 +94,13 @@ if __name__ == '__main__':
         hand_local = []
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
-                mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                mp_drawing.draw_landmarks(
+                    frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
                 for i in range(21):
-                    x = min(int(hand_landmarks.landmark[i].x * frame.shape[1]), frame.shape[1] - 1)
-                    y = min(int(hand_landmarks.landmark[i].y * frame.shape[0]), frame.shape[0] - 1)
+                    x = min(
+                        int(hand_landmarks.landmark[i].x * frame.shape[1]), frame.shape[1] - 1)
+                    y = min(
+                        int(hand_landmarks.landmark[i].y * frame.shape[0]), frame.shape[0] - 1)
                     hand_local.append([x, y])
 
                 if background_flag:
@@ -146,8 +153,3 @@ if __name__ == '__main__':
         if cv2.waitKey(1) & 0xFF == 27:
             break
     cap.release()
-
-
-
-
-

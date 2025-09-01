@@ -1,24 +1,25 @@
-import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
-# 定义残差块
+
 class ResidualBlock(nn.Module):
     def __init__(self, in_channels, out_channels, stride=1):
         super(ResidualBlock, self).__init__()
         # 第一个卷积层
-        self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=stride, padding=1, bias=False)
+        self.conv1 = nn.Conv2d(
+            in_channels, out_channels, kernel_size=3, stride=stride, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(out_channels)  # 批归一化层
         self.relu = nn.ReLU(inplace=True)  # ReLU激活函数
         # 第二个卷积层
-        self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=3, stride=1, padding=1, bias=False)
+        self.conv2 = nn.Conv2d(out_channels, out_channels,
+                               kernel_size=3, stride=1, padding=1, bias=False)
         self.bn2 = nn.BatchNorm2d(out_channels)  # 批归一化层
         # 跳跃连接
         self.downsample = nn.Sequential()  # 初始化为空
         # 如果步长不为1或输入输出通道数不同，需要调整维度
         if stride != 1 or in_channels != out_channels:
             self.downsample = nn.Sequential(
-                nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=stride, bias=False),
+                nn.Conv2d(in_channels, out_channels, kernel_size=1,
+                          stride=stride, bias=False),
                 nn.BatchNorm2d(out_channels)
             )
 
@@ -44,11 +45,14 @@ class ResidualBlock(nn.Module):
         return out
 
 # 构建 CNN 模型
+
+
 class ResNet(nn.Module):
     def __init__(self, num_classes=10):
         super(ResNet, self).__init__()
         # 初始卷积层、批归一化和 ReLU 激活函数
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=3,
+                               stride=1, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(64)
         self.relu = nn.ReLU(inplace=True)
         # 四个阶段的残差块序列
@@ -86,7 +90,7 @@ class ResNet(nn.Module):
 
         return x
 
+
 # 创建模型实例
 model = ResNet()
 print(model)
-

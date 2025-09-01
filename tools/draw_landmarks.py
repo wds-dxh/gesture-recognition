@@ -1,9 +1,10 @@
 import cv2 as cv
 
+
 def draw_landmarks(image, landmark_point):
     if len(landmark_point) > 0:
         # Thumb
-        Figure_color = (255,255,0)
+        Figure_color = (255, 255, 0)
         cv.line(image, tuple(landmark_point[2]), tuple(landmark_point[3]),
                 (0, 0, 0), 6)
         cv.line(image, tuple(landmark_point[2]), tuple(landmark_point[3]),
@@ -70,7 +71,7 @@ def draw_landmarks(image, landmark_point):
                 Figure_color, 2)
 
         # Palm
-        Palm_color = (255,191,0)
+        Palm_color = (255, 191, 0)
         cv.line(image, tuple(landmark_point[0]), tuple(landmark_point[1]),
                 (0, 0, 0), 6)
         cv.line(image, tuple(landmark_point[0]), tuple(landmark_point[1]),
@@ -101,8 +102,8 @@ def draw_landmarks(image, landmark_point):
                 Palm_color, 2)
 
     # Key Points
-    key_clolor = (0,255,255)
-    key_top_color = (101,238,101)
+    key_clolor = (0, 255, 255)
+    key_top_color = (101, 238, 101)
     for index, landmark in enumerate(landmark_point):
         if index == 0:  # 手首1
             cv.circle(image, (landmark[0], landmark[1]), 5, key_clolor,
@@ -188,6 +189,5 @@ def draw_landmarks(image, landmark_point):
             cv.circle(image, (landmark[0], landmark[1]), 6, key_top_color,
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 6, (0, 0, 0), 1)
-
 
     return image
