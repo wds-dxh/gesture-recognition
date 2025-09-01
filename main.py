@@ -15,10 +15,12 @@ import QT
 
 model_path = 'checkpoints/model_test1.pth'
 # model_path = 'checkpoints/model_0.pth'
-label = ["also", "attractive", "beautiful", "believe", "de", "doubt", "dream", "express", "eye", "give", "handlang",
+label = ["also", "attractive", "beautiful", "believe", "de", "doubt",
+         "dream", "express", "eye", "give", "handlang",
          "have",
          "many",
-         "me", "method", "no", "only", "over", "please", "put", "say", "smile", "star", "use", "very",
+         "me", "method", "no", "only", "over", "please", "put", "say",
+         "smile", "star", "use", "very",
          "watch",
          "you"]
 # chinatxt = ["也许", "吸引", "美丽", "相信", "的", "关于", "梦想", "表达", "眼睛", "给予", "手语",
@@ -36,10 +38,12 @@ label = ["also", "attractive", "beautiful", "believe", "de", "doubt", "dream", "
 #          "奶茶",
 #          "你"]
 
-chinatxt = ["也许", "吸引", "你的奶茶好了！！！", "相信", "的", "关于", "好的，", "请问你需要什么", "请问你需要什么", "给予", "手语",
+chinatxt = ["也许", "吸引", "你的奶茶好了！！！", "相信", "的", "关于",
+            "好的，", "请问你需要什么", "请问你需要什么", "给予", "手语",
             "18元，微信支付",
             "很多",
-            "我", "你的奶茶好了！！！", "需要加糖吗？", "不仅", "结束", "请问你需要什么", "请问你需要什么", "非常好喝", "微笑", "请问你需要什么", "使用", "非常好喝",
+            "我", "你的奶茶好了！！！", "需要加糖吗？", "不仅", "结束",
+            "请问你需要什么", "请问你需要什么", "非常好喝", "微笑", "请问你需要什么", "使用", "非常好喝",
             "请问你需要什么",
             "你"]
 
@@ -98,9 +102,11 @@ if __name__ == '__main__':
                     frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
                 for i in range(21):
                     x = min(
-                        int(hand_landmarks.landmark[i].x * frame.shape[1]), frame.shape[1] - 1)
+                        int(hand_landmarks.landmark[i].x * frame.shape[1]),
+                        frame.shape[1] - 1)
                     y = min(
-                        int(hand_landmarks.landmark[i].y * frame.shape[0]), frame.shape[0] - 1)
+                        int(hand_landmarks.landmark[i].y * frame.shape[0]),
+                        frame.shape[0] - 1)
                     hand_local.append([x, y])
 
                 if background_flag:
@@ -117,7 +123,7 @@ if __name__ == '__main__':
             output = model(t.tensor(hand_local))
             index, value = output.topk(1)[1][0], output.topk(1)[0][0]
             this_label = label[index]
-            # draw_rect_txt(frame, this_label + ":" + str(value), brect) #在手部框架上写字
+            # draw_rect_txt(frame, this_label + ":" + str(value), brect)
 
             if value > 9:
                 cv2.putText(frame,
